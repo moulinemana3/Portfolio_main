@@ -15,32 +15,37 @@ const navLinks = [
   { label: 'Services', href: '/#services' },
 ]
 
-// Typing dots animation component (looping)
+// Typing dots animation component (realistic typing indicator)
 function TypingDots() {
-  const [dotCount, setDotCount] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDotCount(prev => (prev + 1) % 4)
-    }, 400)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <span className="flex items-center gap-[3px] ml-2">
+    <span className="flex items-center gap-[4px] ml-2">
       {[0, 1, 2].map((i) => (
         <motion.span
           key={i}
-          className="w-[5px] h-[5px] rounded-full bg-neutral-600"
+          className="w-[5px] h-[5px] rounded-full bg-white/70"
           animate={{
-            backgroundColor: i < dotCount ? '#404040' : '#737373',
-            scale: i < dotCount ? 1.1 : 1,
+            y: [0, -5, 0],
+            opacity: [0.5, 1, 0.5],
           }}
-          transition={{ duration: 0.15 }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatType: 'loop',
+            delay: i * 0.2,
+            ease: [0.4, 0, 0.2, 1],
+          }}
         />
       ))}
     </span>
   )
+}
+
+// Smooth spring config for morphing
+const springConfig = {
+  type: 'spring',
+  stiffness: 300,
+  damping: 30,
+  mass: 0.8,
 }
 
 export default function Navbar() {
@@ -85,20 +90,15 @@ export default function Navbar() {
           animate={{ 
             y: 0, 
             opacity: 1,
-            width: scrolled ? 'auto' : 'auto',
           }}
-          transition={{ 
-            duration: 0.5, 
-            ease: [0.22, 1, 0.36, 1],
-            width: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          }}
+          transition={springConfig}
           layout
+          layoutId="navbar"
           className={`
             relative flex items-center
             backdrop-blur-xl
             border border-white/20
             shadow-[0_8px_32px_rgba(0,0,0,0.3)]
-            transition-all duration-500 ease-out
             ${scrolled 
               ? 'px-3 py-2 rounded-full gap-3' 
               : 'px-4 py-2.5 rounded-full gap-6'
@@ -112,12 +112,13 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <motion.div 
               layout
+              layoutId="logo"
               className="relative overflow-hidden rounded-full bg-neutral-900 flex items-center justify-center"
               animate={{
                 width: scrolled ? 32 : 36,
                 height: scrolled ? 32 : 36,
               }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={springConfig}
             >
               <Image
                 src="/images/cinova-logo.png"
@@ -135,13 +136,14 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Links - Hidden when scrolled */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             {!scrolled && (
               <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: 'auto' }}
-                exit={{ opacity: 0, width: 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                key="nav-links"
+                initial={{ opacity: 0, scale: 0.9, width: 0 }}
+                animate={{ opacity: 1, scale: 1, width: 'auto' }}
+                exit={{ opacity: 0, scale: 0.9, width: 0 }}
+                transition={springConfig}
                 className="hidden md:flex items-center gap-1 overflow-hidden"
               >
                 {navLinks.map((link) => (
@@ -160,16 +162,23 @@ export default function Navbar() {
 
           {/* Desktop CTA / Three dots when scrolled */}
           <div className="hidden md:flex items-center">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               {scrolled ? (
-                <div key="spacer" className="w-2" />
+                <motion.div 
+                  key="spacer" 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="w-2" 
+                />
               ) : (
                 <motion.div
                   key="contact"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
+                  transition={springConfig}
                 >
                   <Link
                     href="/#contact"
