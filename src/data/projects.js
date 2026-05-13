@@ -10,6 +10,23 @@
 // 5. Save this file - your project will appear automatically!
 //
 // ─────────────────────────────────────────────────────────────
+//
+// HOW TO CHANGE/ADD THUMBNAILS:
+// ─────────────────────────────────────────────────────────────
+// 1. Create your thumbnail image (recommended: 1920x1080 or 1280x720, JPG/PNG)
+// 2. Save it to the folder: public/thumbnails/
+//    - Name it something descriptive like: my-project-name.jpg
+// 3. Update the 'thumbnailUrl' field for your project below:
+//    - Example: thumbnailUrl: '/thumbnails/my-project-name.jpg'
+// 4. The thumbnail will appear on the project card with a play button overlay
+//
+// TIPS:
+// - Use 16:9 aspect ratio for best display
+// - Keep file size under 500KB for fast loading
+// - Use descriptive names that match your project ID
+// - JPG is recommended for photos, PNG for graphics with transparency
+//
+// ─────────────────────────────────────────────────────────────
 
 export const projects = [
   {
@@ -31,7 +48,7 @@ export const projects = [
     // THUMBNAIL - Path to your thumbnail image in public/thumbnails/
     // Example: '/thumbnails/my-project.jpg' or '/thumbnails/my-project.png'
     // Leave empty '' to use default placeholder
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/gemini.jpg',
     
     // TAGS - 2-3 short tags describing the work
     tags: ['Product Explainer', 'SaaS', 'UI Animation'],
@@ -42,7 +59,7 @@ export const projects = [
     category: 'Concept Spec',
     description: '',
     videoEmbedUrl: 'https://player.vimeo.com/video/1191850183',
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/feedbask.jpg',
     tags: ['Product Explainer', 'SaaS', 'UI Animation'],
   },
   {
@@ -51,7 +68,7 @@ export const projects = [
     category: 'SaaS Explainer',
     description: '',
     videoEmbedUrl: 'https://player.vimeo.com/video/1191852242',
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/uber.jpg',
     tags: ['UI Animation'],
   },
   {
@@ -60,7 +77,7 @@ export const projects = [
     category: 'Motion System',
     description: 'A modular onboarding animation kit — reusable motion patterns for SaaS products that need to feel welcoming, fast, and human.',
     videoEmbedUrl: 'https://player.vimeo.com/video/336812686?autoplay=0&title=0&byline=0&portrait=0',
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/onboarding-motion.jpg',
     tags: ['Motion System', 'Onboarding', 'UI Kit'],
   },
   {
@@ -69,7 +86,7 @@ export const projects = [
     category: 'Product Launch',
     description: 'A cinematic product launch video designed to create excitement and showcase key features with dynamic motion graphics and storytelling.',
     videoEmbedUrl: 'https://player.vimeo.com/video/336812686?autoplay=0&title=0&byline=0&portrait=0',
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/product-launch.jpg',
     tags: ['Product Launch', 'Cinematic', 'SaaS'],
   },
   {
@@ -78,7 +95,7 @@ export const projects = [
     category: 'UI Animation',
     description: 'A collection of polished micro-interactions that bring interfaces to life. From button states to loading animations, every detail matters.',
     videoEmbedUrl: 'https://player.vimeo.com/video/248688844?autoplay=0&title=0&byline=0&portrait=0',
-    thumbnailUrl: '',
+    thumbnailUrl: '/thumbnails/micro-interactions.jpg',
     tags: ['Micro-interactions', 'UI/UX', 'Details'],
   },
 
