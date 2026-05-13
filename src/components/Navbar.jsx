@@ -163,8 +163,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center">
             <AnimatePresence mode="wait">
               {scrolled ? (
-                {/* Empty placeholder when scrolled - dots are next to brand name */}
-                <div className="w-2" />
+                <div key="spacer" className="w-2" />
               ) : (
                 <motion.div
                   key="contact"
